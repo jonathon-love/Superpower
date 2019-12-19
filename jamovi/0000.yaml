@@ -1,6 +1,6 @@
 ---
 title: Simulation-Based Power Analysis for ANOVA Designs
-name: ANOVApower
+name: Superpower
 version: 0.0.3
 jms: '1.0'
 authors:
@@ -16,10 +16,13 @@ description: >-
   helper functions that compute effect sizes for ANOVA designs, observed error
   rates in the simulations, and functions to plot power curves.
 analyses:
-  - title: ANOVA power
+  - title: ANOVA Power
     name: jmvpower
-    ns: ANOVApower
-    menuGroup: ANOVApower
-    menuTitle: ANOVA power
+    ns: Superpower
+    menuGroup: Power
+    menuTitle: ANOVA Power
+    menuSubgroup: Superpower
+usesNative: true
+minApp: 1.0.8
 
 ...

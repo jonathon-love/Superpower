@@ -1,4 +1,4 @@
-title: ANOVA power
+title: ANOVA Power
 name: jmvpower
 jus: '2.0'
 stage: 0
@@ -28,7 +28,8 @@ children:
           change: './main::onChange_option'
       - type: TextBox
         name: sd
-        format: number
+        format: string
+        width: largest
         events:
           change: './main::onChange_option'
       - type: TextBox
@@ -45,20 +46,68 @@ children:
       - type: CheckBox
         name: plot
   - type: Label
-    label: Simulation
+    label: Power
     margin: large
     children:
+      - type: ComboBox
+        name: correction
+        events:
+          change: './main::onChange_option'
+      - type: LayoutBox
+        margin: large
+        children:
+          - type: Label
+            label: Compare
+            children:
+              - type: RadioButton
+                name: compare_mm
+                optionName: comp
+                optionPart: cells
+                label: Cells
+                events:
+                  change: './main::onChange_option'
+
+              - type: RadioButton
+                name: compare_emm
+                optionName: comp
+                optionPart: emm
+                label: Estimated marginal means
+                events:
+                  change: './main::onChange_option'
+
+                children:
+                  - type: ComboBox
+                    name: emm_model
+                    enable: (comp:emm)
+                    events:
+                      change: './main::onChange_option'
+                  - type: ComboBox
+                    name: contrast_type
+                    enable: (comp:emm)
+                    events:
+                      change: './main::onChange_option'
+                  - type: TextBox
+                    name: emm_comp
+                    format: string
+                    width: largest
+                    enable: (comp:emm)
+                    events:
+                      change: './main::onChange_option'
+      - type: ComboBox
+        name: p_adjust
+        events:
+          change: './main::onChange_option'
       - type: TextBox
         name: alpha_level
         format: number
         events:
           change: './main::onChange_option'
+  - type: Label
+    label: Simulation
+    margin: large
+    children:
       - type: TextBox
         name: nsims
         format: number
-        events:
-          change: './main::onChange_option'
-      - type: ComboBox
-        name: p_adjust
         events:
           change: './main::onChange_option'

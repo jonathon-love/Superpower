@@ -1,6 +1,6 @@
 ---
 name:  jmvpower
-title: ANOVA power
+title: ANOVA Power
 jrs:   '1.1'
 
 items:
@@ -56,10 +56,15 @@ items:
       title: Simulation
       type: Group
       items:
-        - name: results
-          title: Results
+        - name: info
+          type: Html
+          content: >
+            Select 'Run simulation' from ANOVA Power's options when you are
+            ready to perform the simulation.
+
+        - name: main_result
+          title: Power for ANOVA Effects
           type: Table
-          visible: (simulate)
           columns:
             - name: name
               title: ''
@@ -70,19 +75,25 @@ items:
               title: Effect-size
           clearWith:
             - design
-            - labelnames
             - n
             - sd
             - r
             - mu
-            - nsims
             - alpha_level
+            - correction
+            - labelnames
             - p_adjust
+            - nsims
+            - comp
+            - emm_model
+            - contrast_type
+            - emm_p_adjust
+            - emm_comp
 
-        - name: multi
+        - name: pc_results
           title: Multiple comparisons
           type: Table
-          visible: (simulate)
+          visible: (comp:cells)
           columns:
             - name: name
               title: ''
@@ -93,14 +104,49 @@ items:
               title: Effect-size
           clearWith:
             - design
-            - labelnames
             - n
             - sd
             - r
             - mu
-            - nsims
             - alpha_level
+            - correction
+            - labelnames
             - p_adjust
+            - nsims
+            - comp
+            - emm_model
+            - contrast_type
+            - emm_p_adjust
+            - emm_comp
+
+        - name: emm_results
+          title: Power for Estimated Marginal Means
+          type: Table
+          visible: (comp:emm)
+          columns:
+            - name: name
+              title: Contrast
+              type: text
+            - name: power
+              title: Power
+            - name: es
+              title: Cohen's f
+          clearWith:
+            - design
+            - n
+            - sd
+            - r
+            - mu
+            - alpha_level
+            - correction
+            - labelnames
+            - p_adjust
+            - nsims
+            - comp
+            - emm_model
+            - contrast_type
+            - emm_p_adjust
+            - emm_comp
 
     # - name:  text
     #   title: debug

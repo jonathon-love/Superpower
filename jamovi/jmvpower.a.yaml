@@ -1,7 +1,8 @@
 ---
 name:  jmvpower
-title: ANOVA power
-menuGroup: ANOVApower
+title: ANOVA Power
+menuGroup: Power
+menuSubgroup: Superpower
 version: '1.0.0'
 jas: '1.2'
 
@@ -28,20 +29,12 @@ options:
       description:
           R: an integer specifying the sample size in each condition
 
-    - name: sd
-      title: Standard deviation
-      type: Number
-      default: 1.03
-      min: .0001
-      description:
-          R: a number specifying the group standard deviations
-
     - name: r
-      title: Correlation
+      title: Correlation within-subjects factors
       type: Number
-      default: 0.87
+      default: 0.5
       description:
-          R: a number specifying the correlation between dependent variables
+          R: a number specifying the correlation between within-subjects variables
 
     - name: mu
       title: Group means
@@ -50,6 +43,13 @@ options:
       description:
           R: a comma separated string specifying the group means
 
+    - name: sd
+      title: Standard deviations
+      type: String
+      default: "1"
+      description:
+          R: a number specifying the group standard deviations
+
     - name: plot
       title: Plot means
       type: Bool
@@ -57,15 +57,6 @@ options:
       description:
           R: >
             `TRUE` (default) or `FALSE` specifying whether to provide a means plot
-
-    - name: simulate
-      title: Run simulation
-      type: Bool
-      default: false
-      hidden: true
-      description:
-          R: >
-            `TRUE` or `FALSE` (default); perform the simulation
 
     - name: alpha_level
       title: Alpha level
@@ -76,17 +67,24 @@ options:
       description:
           R: a number specifying the alpha level
 
-    - name: nsims
-      title: Number of simulations
-      type: Integer
-      min: 100
-      max: 10000
-      default: 100
+    - name: correction
+      title: Sphericity correction
+      type: List
+      options:
+        - name: none
+          title: None
+        - name: GG
+          title: Grennhouse-Geisser
+        - name: HF
+          title: Huynh-Feldt
+      default: none
       description:
-          R: an integer specifying the number of simulations to perform
+          R: >
+              `'none'` (default), `'GG'`, or `'HF'`; perform no, Grennhouse-Geisser,
+              or Huynh-Feldt sphericity correction respectively.
 
     - name: p_adjust
-      title: Adjustment method for multiple comparisons
+      title: Adjustment for multiple comparisons
       type: List
       options:
         - name: none
@@ -97,7 +95,78 @@ options:
           title: Bonferroni
         - name: fdr
           title: False discovery rate
+        - name: tukey
+          title: Tukey-Kramer
+        - name: scheffe
+          title: Scheffe
       default: holm
       description:
           R: the p-adjustment method to use
+
+    - name: nsims
+      title: Number of simulations
+      type: Integer
+      min: 100
+      max: 10000
+      default: 100
+      description:
+          R: an integer specifying the number of simulations to perform
+
+    - name: comp
+      title: Compare
+      type: List
+      options:
+        - name: cells
+          title: Cells
+        - name: emm
+          title: Estimated marginal means
+      default: cells
+
+    # - name: emm
+    #   title: Estimated marginal means
+    #   type: Bool
+    #   default: true
+    #   description:
+    #       R: >
+    #           `TRUE` (default) or `FALSE`; provide estimated marginal means
+
+    - name: emm_model
+      title: Model
+      type: List
+      options:
+        - name: univariate
+          title: Univariate
+        - name: multivariate
+          title: Multivariate
+      default: univariate
+
+    - name: contrast_type
+      title: Comparisons
+      type: List
+      options:
+        - name: pairwise
+          title: Pairwise
+        - name: poly
+          title: Polynomial contrast
+        - name: consec
+          title: Helmert
+        - name: eff
+          title: Compare each level with the average over all levels
+      default: pairwise
+
+    - name: emm_comp
+      title: Comparisons
+      type: String
+      default: ''
+
+    - name: simulate
+      title: Run simulation
+      type: Bool
+      default: false
+      hidden: true
+      description:
+          R: >
+            `TRUE` or `FALSE` (default); perform the simulation
+
+
 ...
