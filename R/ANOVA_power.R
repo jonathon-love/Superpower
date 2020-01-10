@@ -207,7 +207,7 @@ ANOVA_power <- function(design_result,
   if (emm == TRUE) {
     #Call emmeans with specifcations given in the function
     #Limited to specs and model
-    if (missing(emm_comp)) {
+    if (is.null(emm_comp)) {
       emm_comp = as.character(frml2)[2]
     }
     
